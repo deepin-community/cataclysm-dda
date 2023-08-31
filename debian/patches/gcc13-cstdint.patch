@@ -1,0 +1,24 @@
+From 99edf38643bd71f52f5878aa4445ff61fb5efa7d Mon Sep 17 00:00:00 2001
+From: Reiner Herrmann <reiner@reiner-h.de>
+Date: Wed, 14 Jun 2023 21:16:45 +0200
+Subject: [PATCH] Fix build with GCC 13
+Forwarded: https://github.com/CleverRaven/Cataclysm-DDA/pull/66195
+
+Build was failing with:
+  src/translation_document.h:46:14: error: ‘uint8_t’ in namespace ‘std’ does not name a type;
+---
+ src/translation_document.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/translation_document.h b/src/translation_document.h
+index 1e20f6629a09e..9cb2a72830eee 100644
+--- a/src/translation_document.h
++++ b/src/translation_document.h
+@@ -7,6 +7,7 @@
+ #include <memory>
+ #include <string>
+ #include <vector>
++#include <cstdint>
+ 
+ #include "translation_plural_evaluator.h"
+ 

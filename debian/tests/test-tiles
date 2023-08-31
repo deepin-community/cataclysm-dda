@@ -1,0 +1,36 @@
+#!/bin/sh
+
+set -ex
+
+cd "$AUTOPKGTEST_ARTIFACTS"
+
+# need to create directories until upstream bug #26660 is fixed
+mkdir -p ~/.config
+mkdir -p ~/.local/share
+
+export LANG=en_US.UTF-8
+
+# cdda needs audio or it won't start (#59464)
+export SDL_AUDIODRIVER=dummy
+
+# start cdda and a window manager, and wait a bit
+openbox &
+PID_OPENBOX=$!
+sleep 5
+/usr/games/cataclysm-tiles &
+PID_CDDA=$!
+sleep 15
+xdotool search --onlyvisible --class cataclysm-tiles windowfocus
+
+# take screenshot and OCR it
+scrot screen.png
+scrot --focused cdda.png
+kill "$PID_CDDA"
+kill "$PID_OPENBOX"
+tesseract cdda.png cdda
+
+sed -e 's/^/# cdda.txt: /' < cdda.txt
+
+grep -i "New Game" cdda.txt
+grep -i "Help" cdda.txt
+grep -i "Credits" cdda.txt

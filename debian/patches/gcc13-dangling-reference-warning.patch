@@ -1,0 +1,25 @@
+From da7e60543309405d3081437c6223dd28798f4c08 Mon Sep 17 00:00:00 2001
+From: Maxime Bouillot <maxbouillot@gmail.com>
+Date: Mon, 8 May 2023 18:20:18 +0200
+Subject: [PATCH] Disable dangling reference warning
+Forwarded: https://github.com/CleverRaven/Cataclysm-DDA/pull/65542
+
+GCC 13 reports false positives of this warning.
+---
+ Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 0c8298134f7eb..815065b14bbff 100644
+--- a/Makefile
++++ b/Makefile
+@@ -109,7 +109,8 @@ WARNINGS = \
+   -Wsuggest-override \
+   -Wunused-macros \
+   -Wzero-as-null-pointer-constant \
+-  -Wno-unknown-warning-option
++  -Wno-unknown-warning-option \
++  -Wno-dangling-reference
+ # Uncomment below to disable warnings
+ #WARNINGS = -w
+ DEBUGSYMS = -g

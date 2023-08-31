@@ -1,0 +1,28 @@
+Author: Reiner Herrmann <reiner@reiner-h.de>
+Description: Change data dir to /usr/share/games
+Forwarded: not-needed
+
+--- a/src/path_info.cpp
++++ b/src/path_info.cpp
+@@ -109,7 +109,7 @@
+ 
+     if( !base_path_value.empty() ) {
+ #if defined(DATA_DIR_PREFIX)
+-        datadir_value = base_path_value + "share/cataclysm-dda/";
++        datadir_value = base_path_value + "share/games/cataclysm-dda/";
+         prefix = datadir_value;
+         prefix_path = datadir_path_value;
+ #else
+--- a/Makefile
++++ b/Makefile
+@@ -1021,8 +1021,8 @@
+ bindist: $(BINDIST)
+ 
+ ifeq ($(TARGETSYSTEM), LINUX)
+-DATA_PREFIX=$(DESTDIR)$(PREFIX)/share/cataclysm-dda/
+-BIN_PREFIX=$(DESTDIR)$(PREFIX)/bin
++DATA_PREFIX=$(DESTDIR)$(PREFIX)/share/games/cataclysm-dda/
++BIN_PREFIX=$(DESTDIR)$(PREFIX)/games
+ LOCALE_DIR=$(DESTDIR)$(PREFIX)/share/locale
+ SHARE_DIR=$(DESTDIR)$(PREFIX)/share
+ install: version $(TARGET)

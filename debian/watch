@@ -1,0 +1,4 @@
+version=4
+opts=searchmode=plain \
+https://api.github.com/repos/CleverRaven/Cataclysm-DDA/releases/latest \
+https://api.github.com/repos/CleverRaven/Cataclysm-DDA/tarball/@ANY_VERSION@

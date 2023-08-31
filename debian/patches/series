@@ -1,0 +1,8 @@
+datadir_path.patch
+dont_use_git_version.patch
+split-install-target.patch
+test-directories.patch
+gcc13-keyword-requires.patch
+gcc13-dangling-reference-warning.patch
+gcc13-cstdint.patch
+cleanup.patch

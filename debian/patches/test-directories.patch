@@ -1,0 +1,21 @@
+Author: Reiner Herrmann <reiner@reiner-h.de>
+Description: create directories needed for test
+ CDDA and the tests currently require ~/.config and ~/.local/share to exist,
+ as otherwise it can't create its own directory.
+ As a workaround until the upstream bug is fixed, the directories are created
+ before running the tests.
+ This is okay for dh_auto_test, as it creates a temporary home directory in
+ debian/.debhelper/.
+Bug: https://github.com/CleverRaven/Cataclysm-DDA/issues/26660
+
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -80,6 +80,8 @@
+ #Unconditionally create object directory on invocation.
+ $(shell mkdir -p $(ODIR))
+ 
++$(shell mkdir -p $(HOME)/.config $(HOME)/.local/share)
++
+ # Adding ../tests/ so that the directory appears in __FILE__ for log messages
+ $(ODIR)/%.o: %.cpp $(PCH_P)
+ 	$(CXX) $(CPPFLAGS) $(DEFINES) $(CXXFLAGS) -MMD -MP $(subst main-pch,tests-pch,$(PCHFLAGS)) -c ../tests/$< -o $@
