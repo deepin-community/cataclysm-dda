@@ -1,0 +1,5 @@
+debian/icons/
+tools/format/json_formatter.cgi
+tools/format/json_formatter.d
+templates/
+test_user_dir/

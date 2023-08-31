@@ -1,0 +1,45 @@
+Author: Reiner Herrmann <reiner@reiner-h.de>
+Description: split install target into bin and data parts
+ this allows installing binaries and data files independently
+Forwarded: not-needed
+
+--- a/Makefile
++++ b/Makefile
+@@ -1024,10 +1024,8 @@
+ BIN_PREFIX=$(DESTDIR)$(PREFIX)/games
+ LOCALE_DIR=$(DESTDIR)$(PREFIX)/share/locale
+ SHARE_DIR=$(DESTDIR)$(PREFIX)/share
+-install: version $(TARGET)
++install-data: version
+ 	mkdir -p $(DATA_PREFIX)
+-	mkdir -p $(BIN_PREFIX)
+-	install --mode=755 $(TARGET) $(BIN_PREFIX)
+ 	cp -R --no-preserve=ownership data/core $(DATA_PREFIX)
+ 	cp -R --no-preserve=ownership data/font $(DATA_PREFIX)
+ 	cp -R --no-preserve=ownership data/json $(DATA_PREFIX)
+@@ -1040,9 +1038,6 @@
+ 	cp -R --no-preserve=ownership data/help $(DATA_PREFIX)
+ ifeq ($(TILES), 1)
+ 	cp -R --no-preserve=ownership gfx $(DATA_PREFIX)
+-	install -Dm755 -t $(SHARE_DIR)/applications/ data/xdg/org.cataclysmdda.CataclysmDDA.desktop
+-	install -Dm644 -t $(SHARE_DIR)/metainfo/ data/xdg/org.cataclysmdda.CataclysmDDA.appdata.xml
+-	install -Dm644 -t $(SHARE_DIR)/icons/hicolor/scalable/apps/ data/xdg/org.cataclysmdda.CataclysmDDA.svg
+ endif
+ ifeq ($(SOUND), 1)
+ 	cp -R --no-preserve=ownership data/sound $(DATA_PREFIX)
+@@ -1052,6 +1047,15 @@
+ ifdef LANGUAGES
+ 	$(MAKE) -C lang install
+ endif
++
++install-bin: version $(TARGET)
++	mkdir -p $(BIN_PREFIX)
++	install --mode=755 $(TARGET) $(BIN_PREFIX)
++	install -Dm755 -t $(SHARE_DIR)/applications/ data/xdg/org.cataclysmdda.CataclysmDDA.desktop
++	install -Dm644 -t $(SHARE_DIR)/metainfo/ data/xdg/org.cataclysmdda.CataclysmDDA.appdata.xml
++	install -Dm644 -t $(SHARE_DIR)/icons/hicolor/scalable/apps/ data/xdg/org.cataclysmdda.CataclysmDDA.svg
++
++install: install-bin install-data
+ endif
+ 
+ ifeq ($(TARGETSYSTEM), CYGWIN)

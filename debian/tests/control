@@ -1,0 +1,7 @@
+Tests: test-game
+Restrictions: flaky
+Depends: cataclysm-dda-curses, expect, locales-all
+
+Test-Command: timeout -v 5m xvfb-run -s "-wr" debian/tests/test-tiles
+Restrictions: allow-stderr, superficial
+Depends: cataclysm-dda-sdl, openbox, xvfb, xauth, xdotool, scrot, tesseract-ocr, locales-all

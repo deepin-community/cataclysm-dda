@@ -1,4 +1,56 @@
 #!/usr/bin/make -f
 
+#DH_VERBOSE = 1
+
+include /usr/share/dpkg/pkg-info.mk
+include /usr/share/dpkg/architecture.mk
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+SDL_FLAGS = TILES=1 SOUND=1
+CURSES_FLAGS =
+COMMON_FLAGS = VERSION=$(DEB_VERSION_UPSTREAM) PREFIX=/usr ASTYLE=0 RELEASE=1 USE_XDG_DIR=1 LANGUAGES=all DEBUG_SYMBOLS=1 LINTJSON=0 PCH=0 DEBUGSYMS=-g1
+BIN_FLAGS = LTO=1 GOLD=0
+
+ifneq (,$(filter $(DEB_HOST_ARCH), ppc64el powerpc ppc64))
+export DEB_CXXFLAGS_MAINT_APPEND += -mabi=ieeelongdouble
+endif
+
+# for building with ccache
+#COMMON_FLAGS += CCACHE=1
+
 %:
 	dh $@
+
+override_dh_auto_build-arch:
+	dh_auto_build -- RUNTESTS=0 $(COMMON_FLAGS) $(CURSES_FLAGS) $(BIN_FLAGS)
+	dh_auto_build -- RUNTESTS=0 $(COMMON_FLAGS) $(SDL_FLAGS) $(BIN_FLAGS)
+	# generate icons
+	for size in 16 32 64 128; do \
+		mkdir -p debian/icons/hicolor/$${size}x$${size}/apps; \
+		rsvg-convert -o debian/icons/hicolor/$${size}x$${size}/apps/org.cataclysmdda.CataclysmDDA.png -w $${size} data/xdg/org.cataclysmdda.CataclysmDDA.svg ; \
+	done
+
+override_dh_auto_build-indep:
+
+override_dh_auto_install-arch:
+	$(MAKE) install-bin DESTDIR=$(CURDIR)/debian/tmp $(COMMON_FLAGS) $(CURSES_FLAGS) $(BIN_FLAGS)
+	$(MAKE) install-bin DESTDIR=$(CURDIR)/debian/tmp $(COMMON_FLAGS) $(SDL_FLAGS) $(BIN_FLAGS)
+
+override_dh_auto_install-indep:
+	$(MAKE) install-data DESTDIR=$(CURDIR)/debian/tmp $(COMMON_FLAGS) $(SDL_FLAGS) $(BIN_FLAGS)
+
+override_dh_auto_test-arch:
+
+override_dh_auto_test-indep:
+
+override_dh_install:
+	dh_install -Xcataicon.ico -XLICENSE.txt -XLICENSE-OFL-Terminus-Font.txt -Xchangelog.txt
+
+execute_before_dh_clean:
+	$(MAKE) clean distclean
+
+override_dh_installchangelogs:
+	dh_installchangelogs data/changelog.txt
+
+override_dh_dwz:

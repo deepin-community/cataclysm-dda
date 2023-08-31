@@ -1,0 +1,5 @@
+debian/tmp/usr/games/cataclysm-tiles  usr/games
+usr/share/icons/hicolor/scalable/apps
+usr/share/metainfo
+usr/share/applications
+debian/icons                          usr/share

@@ -1,5 +1,336 @@
-template-repository (1.0-1) unstable; urgency=medium
+cataclysm-dda (0.G-4) unstable; urgency=medium
 
-  * Initial release
+  * Clean up auto-generated header file. (Closes: #1043953)
+  * Replace transitional pkg-config build-dependency with pkgconf.
+  * Build only on 64bit architectures, as upstream does not support 32bit.
+  * Add Forwarded headers to patches.
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Reiner Herrmann <reiner@reiner-h.de>  Tue, 15 Aug 2023 19:59:35 +0200
+
+cataclysm-dda (0.G-3) unstable; urgency=medium
+
+  * Fix FTBFS with GCC 13. (Closes: #1037601)
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Wed, 14 Jun 2023 22:18:08 +0200
+
+cataclysm-dda (0.G-2) unstable; urgency=medium
+
+  * Wait a bit in test until wm is running to reduce flakyness.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Thu, 02 Mar 2023 19:45:22 +0100
+
+cataclysm-dda (0.G-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Disable tests for now as they are known to be flaky upstream.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Wed, 01 Mar 2023 20:37:23 +0100
+
+cataclysm-dda (0.G~rc1-2) experimental; urgency=medium
+
+  * Fix build failure on ppc64el/powerpc/ppc64 by building
+    with -mabi=ieeelongdouble.
+  * Always build with -g1, as more buildds now have memory problems.
+  * Adjust autopkgtests to new upstream release.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Mon, 27 Feb 2023 20:35:10 +0100
+
+cataclysm-dda (0.G~rc1-1) experimental; urgency=medium
+
+  * New upstream release candidate.
+  * Drop applied/outdated patches.
+  * Bump Standards-Version to 4.6.2.
+  * Specify full path to DESTDIR.
+  * Disable dh_dwz as it fails.
+  * Update copyrights.
+  * Drop string from test that is sometimes misdetected by OCR.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sun, 26 Feb 2023 22:10:43 +0100
+
+cataclysm-dda (0.F-3-9) unstable; urgency=medium
+
+  [ Simon McVittie ]
+  * d/tests/test-tiles:
+    - Run a window manager inside Xvfb. (Closes: #1025775)
+    - Show commands as we execute them.
+    - Screenshot the whole screen, not just the window.
+    - Show the OCR'd text in the log.
+    - Use SDL_AUDIODRIVER=dummy instead of PulseAudio.
+    - Use a white background for Xvfb.
+
+  [ Reiner Herrmann ]
+  * d/tests/control: Drop pulseaudio from test dependencies.
+  * d/tests/test-tiles:
+    - start game with absolute path.
+    - shutdown openbox gracefully.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sat, 10 Dec 2022 21:23:12 +0100
+
+cataclysm-dda (0.F-3-8) unstable; urgency=medium
+
+  * Create directories needed by autopkgtest.
+  * Start pulseaudio in autopkgtest to get dummy audio.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sat, 29 Oct 2022 20:47:04 +0200
+
+cataclysm-dda (0.F-3-7) unstable; urgency=medium
+
+  * Fix syntax for custom command in autopkgtest control.
+  * Make test more robust.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Mon, 24 Oct 2022 17:51:04 +0200
+
+cataclysm-dda (0.F-3-6) unstable; urgency=medium
+
+  * Fix symlink to unifont file, which is now only provided as opentype.
+    (Closes: #1022269)
+  * Use api.github.com for searching upstream releases.
+  * Add superficial autopkgtest that checks if tiles version is starting
+    successfully.
+  * Bump copyright year.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sun, 23 Oct 2022 15:18:34 +0200
+
+cataclysm-dda (0.F-3-5) unstable; urgency=medium
+
+  * Import patch to fix FTBFS. (Closes: #1015064)
+  * Fix path to desktop file in appdata file.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sat, 16 Jul 2022 19:03:05 +0200
+
+cataclysm-dda (0.F-3-4) unstable; urgency=medium
+
+  * Mark autopkgtest as flaky, as it fails intermittently. (Closes: #1012169)
+  * Mark two functions as unused to fix build errors on hurd.
+  * Bump Standards-Version to 4.6.1.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sat, 04 Jun 2022 20:57:10 +0200
+
+cataclysm-dda (0.F-3-3) unstable; urgency=medium
+
+  * Build on mipsel with reduced debug information to prevent memory
+    exhaustion during linking.
+    Thanks to Adrian Bunk for the workaround and verifying it.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sun, 16 Jan 2022 12:12:30 +0100
+
+cataclysm-dda (0.F-3-2) unstable; urgency=medium
+
+  * Cherry-pick patch that allows disabling usage of gold linker.
+  * Disable usage of gold linker as it's not available on some architectures.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Mon, 10 Jan 2022 14:28:02 +0100
+
+cataclysm-dda (0.F-3-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Cherry-pick commit that updates catch2 to fix build error with newer glibc.
+  * Add a small delay in autopkgtest to wait for window update
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Mon, 29 Nov 2021 23:17:40 +0100
+
+cataclysm-dda (0.F-2-3) unstable; urgency=medium
+
+  * Replace transitional libncursesw5-dev build dependency with
+    libncurses-dev.
+  * Build unittests without LTO to prevent catch-related crash on mips64el.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sat, 30 Oct 2021 20:11:28 +0200
+
+cataclysm-dda (0.F-2-2) unstable; urgency=medium
+
+  * Increase terminal height in autopkgtest, as the main menu needs more
+    vertical space during halloween season.
+  * Build with LTO.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Thu, 28 Oct 2021 23:34:07 +0200
+
+cataclysm-dda (0.F-2-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Fri, 03 Sep 2021 19:15:11 +0200
+
+cataclysm-dda (0.F-1-2) unstable; urgency=medium
+
+  * Set TERM in autopkgtest, as the environment is cleared on ci.d.n.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Tue, 24 Aug 2021 23:44:18 +0200
+
+cataclysm-dda (0.F-1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Fix autopkgtest in minimal environments.
+  * Bump Standards-Version to 4.6.0.
+  * Disable tests broken in new upstream version.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Wed, 18 Aug 2021 18:17:12 +0200
+
+cataclysm-dda (0.F-3) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sun, 15 Aug 2021 11:08:49 +0200
+
+cataclysm-dda (0.F-2) experimental; urgency=medium
+
+  * Install xdg files in install-bin target. Fixes arch-only FTBFS.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sat, 17 Jul 2021 14:28:51 +0200
+
+cataclysm-dda (0.F-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Add autopkgtest for cataclysm-dda-curses.
+  * Use dh_auto_test again, as it can build tests in parallel, and meanwhile
+    sanitizes XDG_ variables.
+  * Clean directory left over by tests.
+  * Update paths in d/rules and d/*.install.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sat, 10 Jul 2021 20:16:08 +0200
+
+cataclysm-dda (0.F~rc1-1) experimental; urgency=medium
+
+  * New upstream release candidate.
+    - Refresh patches
+  * Replace ttf-unifont dependency with fonts-unifont. (Closes: #986853)
+  * Build without pre-compiled headers.
+  * Exclude Terminus.ttf from upstream tarball.
+  * Depend on and create symlink to terminus font.
+  * Simplify dh_clean override.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Fri, 14 May 2021 14:44:30 +0200
+
+cataclysm-dda (0.E-3-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Bump Standards-Version to 4.5.1.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Fri, 18 Dec 2020 17:26:10 +0100
+
+cataclysm-dda (0.E-1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update debhelper compat level to 13:
+    - Remove check for nocheck in dh_auto_test override
+    - Run make instead of dh_auto_test, as it is cleaning XDG_* variables
+  * Update Vcs-* fields.
+  * Exclude fonts from upstream tarball.
+  * Use CPPFLAGS also for building tests.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Mon, 18 May 2020 21:34:48 +0200
+
+cataclysm-dda (0.E-2) unstable; urgency=medium
+
+  * Delay building of tests to dh_auto_test and skip test runs on mipsel.
+    The mipsel buildd was running out of memory while linking the tests.
+  * Move more build dependencies to Build-Depends-Arch.
+  * Don't run tests if nocheck build option is set.
+  * Improve cross buildability:
+    - Don't run json linter during build
+    - Use PKG_CONFIG variable consistently in Makefile
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sat, 04 Apr 2020 17:41:50 +0200
+
+cataclysm-dda (0.E-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Refresh patches and drop obsolete ones.
+  * Drop dependencies and other references to Lua, as upstream dropped
+    support.
+  * Update watch file URL to get latest release without pre-releases.
+  * Bump Standards-Version to 4.5.0.
+  * Build-depend on gettext.
+  * Update copyrights.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Wed, 01 Apr 2020 23:10:39 +0200
+
+cataclysm-dda (0.D-4) unstable; urgency=medium
+
+  * Disable flaky crafting_test.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Thu, 15 Aug 2019 18:59:43 +0200
+
+cataclysm-dda (0.D-3) unstable; urgency=medium
+
+  * Upload to unstable.
+  * Revert "Point to experimental branch in Vcs-Git".
+  * Update website URLs in upstream files.
+  * Update upstream metadata.
+  * Bump Standards-Version to 4.4.0; no changes required.
+  * Depend on debhelper-compat 12.
+  * Install binaries from d/tmp so that dh_missing recognizes them.
+  * Split upstream install target into -bin and -data targets.
+  * Speed up arch:all-only builds by splitting d/rules targets into -arch
+    and -indep targets.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Fri, 12 Jul 2019 22:06:24 +0200
+
+cataclysm-dda (0.D-2) experimental; urgency=medium
+
+  * Fix build with gcc9. (Closes: #925648)
+  * Point to experimental branch in Vcs-Git.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sat, 06 Apr 2019 13:40:03 +0200
+
+cataclysm-dda (0.D-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Update homepage.
+  * Drop patches applied upstream.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Tue, 12 Mar 2019 19:38:29 +0100
+
+cataclysm-dda (0.C+git20190228.faafa3a-2) unstable; urgency=medium
+
+  * Cherry-pick upstream patch to fix sporadic unit test failures.
+  * Update upstream changelog.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Fri, 01 Mar 2019 18:22:29 +0100
+
+cataclysm-dda (0.C+git20190228.faafa3a-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+    - A lot of bugfixes in preparation of 0.D release.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Thu, 28 Feb 2019 20:02:49 +0100
+
+cataclysm-dda (0.C+git20190124.0525397-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+  * Drop patch applied upstream.
+  * Don't try to run astyle during build.
+  * Bump Standards-Version to 4.3.0.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Fri, 25 Jan 2019 19:40:33 +0100
+
+cataclysm-dda (0.C+git20181202.05d851e-3) unstable; urgency=medium
+
+  * Import upstream patch to address test hangs on some architectures due to
+    floating point calculations.
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sun, 09 Dec 2018 21:10:43 +0100
+
+cataclysm-dda (0.C+git20181202.05d851e-2) unstable; urgency=medium
+
+  * debian/rules: disable building with ccache again
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sun, 02 Dec 2018 17:34:38 +0100
+
+cataclysm-dda (0.C+git20181202.05d851e-1) unstable; urgency=low
+
+  * New upstream snapshot.
+  * Enable Lua support.
+    - Build-Depend on liblua5.3-dev and lua5.3
+  * Drop reproducible.patch applied upstream.
+  * Adapt paths in d/*.install to renamed files.
+  * Bump Standards-Version to 4.2.1.
+    - Declare that d/rules does not require root
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Sun, 02 Dec 2018 16:47:33 +0100
+
+cataclysm-dda (0.C+git20180520.620a1f9-1) unstable; urgency=low
+
+  * Initial release (Closes: #784764)
+
+ -- Reiner Herrmann <reiner@reiner-h.de>  Wed, 23 May 2018 22:41:28 +0200

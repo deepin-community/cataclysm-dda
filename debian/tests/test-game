@@ -1,0 +1,97 @@
+#!/usr/bin/expect -f
+
+set timeout 120
+
+# we need to have at least 39 lines
+# (the halloween holiday screen needs that height)
+set stty_init "rows 39 cols 80"
+
+# make sure no old state is there
+system "rm -rf ~/.local/share/cataclysm-dda/"
+
+# need to create directories until upstream bug #26660 is fixed
+file mkdir ~/.config
+file mkdir ~/.local/share
+
+set env(LANG) "en_US.UTF-8"
+set env(TERM) "linux"
+
+spawn cataclysm
+
+expect_before {
+	timeout { puts "timeout"; exit 1 }
+}
+
+# title screen
+expect "ew Game*"
+
+# show MOTD
+send -- "M"
+
+# start a new game
+send -- "N"
+expect "Play Now!*"
+send -- "D"
+expect "Create World*"
+send -- "f"
+expect "Are you SURE*"
+send -- "Y"
+
+# loading screens
+expect "Loading files"
+expect "Finalizing"
+expect "Please wait as we build your world"
+
+# now ingame
+expect "Press }*for sidebar options"
+
+# save game
+send -- "S"
+expect "Save and quit?*"
+send -- "Y"
+
+# title screen
+expect "ew Game*"
+send -- "M"
+
+# load game
+send -- "a"
+expect "?*"
+#expect "1*"
+send -- "\r"
+expect "q*"
+send -- "\r"
+
+# loading screens
+expect "Loading files"
+expect "Finalizing"
+expect "Press }*for sidebar options"
+
+# end the game
+send -- "Q"
+expect "Abandon this character?*"
+send -- "Y"
+expect "This will kill your character*"
+send -- "Y"
+expect "In memory of:"
+expect "Last Words:*"
+send -- "\r"
+expect "?*"
+send -- "q"
+expect "Open diary*"
+send -- "N"
+expect "ACHIEVEMENTS*"
+sleep 1
+send -- "q"
+expect "Your Followers*"
+send -- "q"
+
+# back to title screen
+expect "ew Game*"
+
+# quit
+send -- "Q"
+expect "Really quit?*"
+send -- "Y"
+expect eof
+
