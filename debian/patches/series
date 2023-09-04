@@ -6,3 +6,4 @@ gcc13-keyword-requires.patch
 gcc13-dangling-reference-warning.patch
 gcc13-cstdint.patch
 cleanup.patch
+fix-font-path.patch

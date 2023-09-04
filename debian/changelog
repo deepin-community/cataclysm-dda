@@ -1,3 +1,10 @@
+cataclysm-dda (0.G-4deepin1) unstable; urgency=medium
+
+  * Fix ttf font link path
+  * Fix font location in json
+
+ -- Chang Yang <yangchang@deepin.org> Mon, 04 Sep 2023 14:40:23 +0800
+
 cataclysm-dda (0.G-4) unstable; urgency=medium
 
   * Clean up auto-generated header file. (Closes: #1043953)
